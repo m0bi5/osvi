@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+        <link rel="stylesheet" href="{{url_for('static',filename='css/materialize.css')}}">
+        <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+        <script src="{{url_for('static',filename='js/materialize.js')}}"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <title>Alumni Card System</title>
+    {% endblock %}
+  </head>
+  <body>
+    <main>
+        <div class='container' id="content">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </main>
+        <footer class="page-footer teal">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Alumni Card Hardware Project</h5>
+                        <p class="grey-text text-lighten-4">Developed as a part of Open Source Virtual Instrumentation (AM477) course in the academic year 2019-2020. </p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Team Members</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="#!">Mohit Bhasi (16CO126)</a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!">Gautam Ramakrishnan (16CO209)</a></li>
+                            <li><a class="grey-text text-lighten-3" href="#!">Tarun Anand (16CO)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <script type="text/javascript">
+        window.mdc.autoInit();
+    </script>
+  </body>
+</html>

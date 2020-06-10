@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row"></div>
+<div class="row"></div>
+<div class="row"></div>
+<div class="row"></div>
+<div class="row">
+    <div class="col l8 offset-l2 m10 offset-m1 s12">
+        <form class="card hoverable" action='/' method="POST">
+            <div class="card-content">
+                <h3 class='teal-text center'>Scan your Alumni Card here</h3>
+                <div class="center">
+                    <div class="row">
+                        <div class="input-field col s8 offset-s2">
+                            <input id="uid" name="uid" type="text">
+                            <label class="active" for="uid">Enter QR Code</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="center btn waves-effect waves-light" type="submit" name="action">Send to Iris
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

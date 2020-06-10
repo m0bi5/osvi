@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block head %}
+    {{super()}}
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+{% endblock %}
+
+{% block content %}
+<div class="row"></div>
+<div class="row"></div>
+<div class="row"></div>
+<div class="row"></div> 
+<div class="row">
+    <div class="col card hoverable l8 offset-l2 m10 offset-m1 s12">
+        <div class="card-content">
+            <h3 class='teal-text center'>Welcome Back!</h3>
+            <div class="center">
+                <div class="row">
+                    <div class="col s4">
+                        <img class='responsive-img' src="data:image/jpeg;base64,{{context.image}}"/>
+                    </div>
+                    <div class="col s8">                        
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix"><span class='teal-text'>account_box</span></i>
+                            <input id="name" type="text" value="{{context.firstName}} {{context.lastName}}" class="validate">
+                            <label for="name">Name</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix"><span class='teal-text'>domain</span></i>
+                            <input id="name" type="text" value="{{context.major}}" class="validate">
+                            <label for="name">Branch</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix"><span class='teal-text'>date_range</span></i>
+                            <input id="name" type="text" value="{{context.batch}}" class="validate">
+                            <label for="name">Year of Graduation</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

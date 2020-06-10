@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row"></div>
+<div class="row"></div>
+<div class="row"></div>
+<div class="row"></div> 
+<div class="row">
+    <h3 class="teal-text center">Fetching details from IRIS</h3>
+    <h6 class="center">{{requestId}}</h6>
+    <div class="col offset-s5">
+        <div class="preloader-wrapper loading big active">
+            <div class="spinner-layer spinner-teal-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block head %}
+    {{super()}}
+    <script>
+    function httpGet(url)
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", url, false ); 
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+    }
+    var checkForResponse = setInterval(function() {
+        var response = httpGet('/checkForResponse');
+        console.log(response)
+        if (response=='true') {
+            clearInterval(response);
+            window.location.replace('/details')
+        }
+    }, 2000);
+
+    </script>
+{% endblock %}
