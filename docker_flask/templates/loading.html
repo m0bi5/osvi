@@ -1,4 +1,25 @@
 {% extends "base.html" %}
+{% block head %}
+    {{super()}}
+    <script>
+    function httpGet(url)
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", url, false ); 
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+    }
+    var checkForResponse = setInterval(function() {
+        var response = httpGet('/checkForResponse');
+        console.log(response)
+        if (response=='true') {
+            clearInterval(response);
+            window.location.replace('/details')
+        }
+    }, 2000);
+
+    </script>
+{% endblock %}
 {% block content %}
 <div class="row"></div>
 <div class="row"></div>
@@ -23,26 +44,4 @@
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block head %}
-    {{super()}}
-    <script>
-    function httpGet(url)
-    {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", url, false ); 
-        xmlHttp.send( null );
-        return xmlHttp.responseText;
-    }
-    var checkForResponse = setInterval(function() {
-        var response = httpGet('/checkForResponse');
-        console.log(response)
-        if (response=='true') {
-            clearInterval(response);
-            window.location.replace('/details')
-        }
-    }, 2000);
-
-    </script>
 {% endblock %}
