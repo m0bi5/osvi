@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from flask import Flask,session,render_template,redirect,request
-import mqtt
+#import mqtt
 import sys
 import json
 import os
@@ -16,7 +16,7 @@ def home():
         requestId=''.join(random.choices(string.ascii_letters + string.digits, k=16))
         session['requestId']=requestId
         sendToIris=json.dumps({'requestId':requestId,'cardId':request.form['uid']})
-        mqtt.client.publish("alumcardosvi/req",sendToIris)
+        #mqtt.client.publish("alumcardosvi/req",sendToIris)
         return redirect('/loading')
       
     return render_template("home.html")
@@ -46,8 +46,10 @@ def details():
     data,image=irisResponse.split('IMAGE_RETURNED')
     context=json.loads(data)
     context['image']=image
-    #os.remove(requestId)
-    #session.pop('requestId',None)
+    os.chdir('../shared')
+    os.remove(requestId)
+    os.chdir('../server')
+    session.pop('requestId',None)
     return render_template("details.html",context=context)
 
 if __name__ == '__main__':
