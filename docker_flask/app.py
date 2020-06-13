@@ -22,7 +22,7 @@ def home():
 
 @app.route('/loading',methods=['POST','GET'])
 def loading():
-    return render_template("loading.html",requestId=session['requestId'])
+    return render_template("loading.html")
 
 @app.route('/checkForResponse',methods=['GET'])
 def checkForResponse():
