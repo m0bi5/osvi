@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from flask import Flask,session,render_template,redirect,request
 import mqtt
 import sys
