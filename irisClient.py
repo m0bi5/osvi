@@ -15,8 +15,11 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, message):
     data=json.loads(str(message.payload.decode("utf-8")))
-    client.publish('alumcardosvi/res',payload=json.dumps({'requestId':data['requestId'],'major':'Computer Science and Engineering','firstName':'Mohit','lastName':'Bhasi','batch':2020})+'IMAGE_RETURNED'+convertImageToBase64())
-
+    if data['cardId']=='error':
+        client.publish('alumcardosvi/res',payload=json.dumps({'requestId':data['requestId'],'status':"error",'message':'Invalid QR Code Scanned!'}))
+    else:
+        client.publish('alumcardosvi/res',payload=json.dumps({'requestId':data['requestId'],'status':'success','major':'Computer Science and Engineering','firstName':'Mohit','lastName':'Bhasi','batch':2020,'image':convertImageToBase64()}))
+    
 
 def on_publish(client, userdata, message):
     print("Message Published = ",message)
@@ -38,4 +41,3 @@ print("Subscribing to topic","alumcardosvi")
 client.subscribe("alumcardosvi/req")
 client.subscribe("alumcardosvi/res")
 client.loop_forever()
-

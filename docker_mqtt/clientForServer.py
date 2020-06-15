@@ -10,10 +10,9 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, message):
     data=str(message.payload.decode("utf-8"))
-    requestId,_=data.split('IMAGE_RETURNED')
-    requestId=json.loads(requestId)
+    requestId=json.loads(data)
     print("Response received for ",requestId['requestId'])
-    with open('../shared/'+requestId['requestId'],'w') as f:
+    with open('../docker_flask/'+requestId['requestId'],'w') as f:
         f.write(data)
 
 def on_publish(client, userdata, message):

@@ -1,11 +1,12 @@
 #!/usr/bin/env python
-from flask import Flask,session,render_template,redirect,request
+from flask import Flask,session,flash,render_template,redirect,request,url_for
 import mqtt
 import sys
 import json
 import os
 import random
 import string
+import time
 
 app = Flask(__name__)
 app.secret_key = 'ansdahjrehrwSXajswdeBEJFkadn'
@@ -18,12 +19,16 @@ def home():
         sendToIris=json.dumps({'requestId':requestId,'cardId':request.form['uid']})
         mqtt.client.publish("alumcardosvi/req",sendToIris)
         return redirect('/loading')
-      
     return render_template("home.html")
 
 @app.route('/loading',methods=['POST','GET'])
 def loading():
     return render_template("loading.html")
+
+@app.route('/timeout',methods=['POST','GET'])
+def timeout():
+    flash('IRIS Connection Timed Out')
+    return redirect('/')
 
 @app.route('/checkForResponse',methods=['GET'])
 def checkForResponse():
@@ -43,9 +48,10 @@ def details():
     with open(requestId,'r') as f:
         irisResponse=f.read()
     os.chdir('../server')
-    data,image=irisResponse.split('IMAGE_RETURNED')
-    context=json.loads(data)
-    context['image']=image
+    context=json.loads(irisResponse)
+    if context['status']=='error':
+        flash(context['message'])
+        return redirect(url_for('.home'))
     os.chdir('../shared')
     os.remove(requestId)
     os.chdir('../server')

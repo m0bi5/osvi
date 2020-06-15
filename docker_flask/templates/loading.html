@@ -9,7 +9,14 @@
         xmlHttp.send( null );
         return xmlHttp.responseText;
     }
+    var timesRun=0;
     var checkForResponse = setInterval(function() {
+        timesRun+=1;
+        //Wait for 20 seconds
+        if(timesRun==10){
+            clearInterval(checkForResponse)
+            window.location.replace('/timeout')
+        }
         var response = httpGet('/checkForResponse');
         console.log(response)
         if (response=='true') {
@@ -17,7 +24,6 @@
             window.location.replace('/details')
         }
     }, 2000);
-
     </script>
 {% endblock %}
 {% block content %}
