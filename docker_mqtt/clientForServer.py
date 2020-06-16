@@ -12,7 +12,7 @@ def on_message(client, userdata, message):
     data=str(message.payload.decode("utf-8"))
     requestId=json.loads(data)
     print("Response received for ",requestId['requestId'])
-    with open('../docker_flask/'+requestId['requestId'],'w') as f:
+    with open('../shared/'+requestId['requestId'],'w') as f:
         f.write(data)
 
 def on_publish(client, userdata, message):
