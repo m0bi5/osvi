@@ -27,6 +27,12 @@ client.username_pw_set(username,password)
 client.tls_set(ca_certs='iris.crt', certfile=None, keyfile=None, cert_reqs=ssl.CERT_REQUIRED,tls_version=ssl.PROTOCOL_TLS, ciphers=None)
 client.tls_insecure_set(True)
 client.connect("mqtt.iris.nitk.ac.in", 8883, 60)
-print("Subscribing to topic","alumcardosvi")   
-client.subscribe("alumcardosvi/req")
-client.subscribe("alumcardosvi/res")
+
+with open('../shared/device_id','r') as f:
+    deviceId=f.read()
+
+#Remove stray in case of fuck up while entering
+deviceId=deviceId.strip()
+print(deviceId,' device started')
+print("Subscribing to topic","alumcardosvi/{}/req".format(deviceId))   
+client.subscribe("alumcardosvi/{}/req".format(deviceId))

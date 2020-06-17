@@ -12,8 +12,8 @@
     var timesRun=0;
     var checkForResponse = setInterval(function() {
         timesRun+=1;
-        //Wait for 20 seconds
-        if(timesRun==10){
+        //Wait for 40 seconds
+        if(timesRun==20){
             clearInterval(checkForResponse)
             window.location.replace('/timeout')
         }

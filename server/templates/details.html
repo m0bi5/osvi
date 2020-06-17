@@ -16,23 +16,23 @@
             <div class="center">
                 <div class="row">
                     <div class="col s4">
-                        <img class='responsive-img' src="data:image/jpeg;base64,{{context.image}}"/>
+                        <img class='responsive-img' src="data:image/jpeg;base64,{{context.photo_base64}}"/>
                     </div>
-                    <div class="col s8">                        
+                    <div class="col s8">                      
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix"><span class='teal-text'>fingerprint</span></i>
+                            <input id="name" type="text" value="{{context.admission_no}}" class="validate">
+                            <label for="name">Admission Number</label>
+                        </div>  
                         <div class="input-field col s12">
                             <i class="material-icons prefix"><span class='teal-text'>account_box</span></i>
-                            <input id="name" type="text" value="{{context.firstName}} {{context.lastName}}" class="validate">
+                            <input id="name" type="text" value="{{context.name}}" class="validate">
                             <label for="name">Name</label>
                         </div>
                         <div class="input-field col s12">
                             <i class="material-icons prefix"><span class='teal-text'>domain</span></i>
-                            <input id="name" type="text" value="{{context.major}}" class="validate">
+                            <input id="name" type="text" value="{{context.branch_name}}" class="validate">
                             <label for="name">Branch</label>
-                        </div>
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix"><span class='teal-text'>date_range</span></i>
-                            <input id="name" type="text" value="{{context.batch}}" class="validate">
-                            <label for="name">Year of Graduation</label>
                         </div>
                     </div>
                 </div>

@@ -15,11 +15,10 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, message):
     data=json.loads(str(message.payload.decode("utf-8")))
-    if data['cardId']=='error':
-        client.publish('alumcardosvi/res',payload=json.dumps({'requestId':data['requestId'],'status':"error",'message':'Invalid QR Code Scanned!'}))
+    if data['qr_code']=='error':
+        client.publish('alumcardosvi/osvi_pi_test/res',payload=json.dumps({'request_id':data['request_id'],'status':"error",'message':'Invalid QR Code Scanned!'}))
     else:
-        client.publish('alumcardosvi/res',payload=json.dumps({'requestId':data['requestId'],'status':'success','major':'Computer Science and Engineering','firstName':'Mohit','lastName':'Bhasi','batch':2020,'image':convertImageToBase64()}))
-    
+        client.publish('alumcardosvi/osvi_pi_test/res',payload=json.dumps({'request_id':data['request_id'],'status':'success','branch_name':'Computer Science and Engineering','name':'Mohit Bhasi','admission_no':'16710216CO126','photo_base64':convertImageToBase64()}))
 
 def on_publish(client, userdata, message):
     print("Message Published = ",message)
@@ -38,6 +37,6 @@ client.tls_set(ca_certs='iris.crt', certfile=None, keyfile=None, cert_reqs=ssl.C
 client.tls_insecure_set(True)
 client.connect("mqtt.iris.nitk.ac.in", 8883, 60)
 print("Subscribing to topic","alumcardosvi")   
-client.subscribe("alumcardosvi/req")
-client.subscribe("alumcardosvi/res")
+client.subscribe("alumcardosvi/osvi_pi_test/req")
+client.subscribe("alumcardosvi/osvi_pi_test/res")
 client.loop_forever()

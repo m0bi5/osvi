@@ -10,14 +10,19 @@ import time
 
 app = Flask(__name__)
 app.secret_key = 'ansdahjrehrwSXajswdeBEJFkadn'
+deviceId = None
 
 @app.route('/',methods=['POST','GET'])
 def home():
     if request.method=='POST':
-        requestId=''.join(random.choices(string.ascii_letters + string.digits, k=16))
+        requestId = ''.join(random.choices(string.ascii_letters + string.digits, k=16))
         session['requestId']=requestId
-        sendToIris=json.dumps({'requestId':requestId,'cardId':request.form['uid']})
-        mqtt.client.publish("alumcardosvi/req",sendToIris)
+        sendToIris = json.dumps({'request_id':requestId,'qr_code':request.form['qr_code']})
+        with open('../shared/device_id','r') as f:
+            deviceId=f.read()
+        deviceId = deviceId.strip()
+        print("alumcardosvi/{}/req".format(deviceId))
+        mqtt.client.publish("alumcardosvi/{}/req".format(deviceId),sendToIris)
         return redirect('/loading')
     return render_template("home.html")
 
