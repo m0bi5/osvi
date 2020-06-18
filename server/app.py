@@ -11,6 +11,7 @@ import time
 app = Flask(__name__)
 app.secret_key = 'ansdahjrehrwSXajswdeBEJFkadn'
 deviceId = None
+alljson = dict()
 
 @app.route('/',methods=['POST','GET'])
 def home():
@@ -39,7 +40,10 @@ def timeout():
 def checkForResponse():
     requestId=session['requestId']
     os.chdir('../shared')
-    exists=os.path.exists(requestId)
+    #exists=os.path.exists(requestId)
+    exists = False
+    if requestId in alljson:
+        exists = True
     os.chdir('../server')
     if exists:
         return json.dumps(True)
@@ -50,18 +54,25 @@ def checkForResponse():
 def details():
     requestId=session['requestId']
     os.chdir('../shared')
-    with open(requestId,'r') as f:
-        irisResponse=f.read()
+    #with open(requestId,'r') as f:
+    #    irisResponse=f.read()
+    irisResponse = alljson[requestId]
     os.chdir('../server')
     context=json.loads(irisResponse)
     if context['status']=='error':
         flash(context['message'])
         return redirect(url_for('.home'))
     os.chdir('../shared')
-    os.remove(requestId)
+    #os.remove(requestId)
     os.chdir('../server')
     session.pop('requestId',None)
     return render_template("details.html",context=context)
+
+@app.route('/sendjson',methods=['POST'])
+def getjson():
+    requestId=session['requestId']
+    to_be_stored = request.json
+    alljson = [requestId] = to_be_stored
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

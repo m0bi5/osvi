@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import paho.mqtt.client as mqtt
+from requests import post
 import ssl,time,json
 import base64
 username='alumcardosvi'
 password='MDKVgVw=xh6A#=2N'
 deviceId=None
-
 
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
@@ -19,8 +19,9 @@ def on_message(client, userdata, message):
     print(deviceId,topic)
     if deviceId in topic:
         print("Response received for ",data['request_id'])
-        with open('../shared/{}'.format(data['request_id']),'w') as f:
-            f.write(json.dumps(data))
+        #with open('../shared/{}'.format(data['request_id']),'w') as f:
+        #    f.write(json.dumps(data))
+        post("localhost:5000/sendjson", json=json.dumps(data))
 
 def on_publish(client, userdata, message):
     print("Message Published = ",message)
