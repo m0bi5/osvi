@@ -14,6 +14,7 @@ def on_message(client, userdata, message):
     data=str(message.payload.decode("utf-8"))
     data=json.loads(data)
     print("Message received")
+    print(data)
     topic=message.topic
     print(deviceId,topic)
     if deviceId in topic:
